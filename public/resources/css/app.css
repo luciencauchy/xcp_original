@@ -1,0 +1,43 @@
+@font-face {
+  font-family: Abel;
+  src: url("@/fonts/Abel-Regular.ttf");
+}
+body {
+  font-family: Abel, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 720px) {
+  * {
+    font-size: 10px;
+  }
+}
+@media screen and (min-width: 850px) {
+  * {
+    font-size: 12px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  * {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 1100px) {
+  * {
+    font-size: 16px;
+  }
+}
+#app {
+  margin: 0;
+}
+
+/* hide scrollbar but allow scrolling */
+html {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}

@@ -1,0 +1,47 @@
+@import './elements.scss';
+
+.app-container {
+    width: 100vw;
+    display: flex;
+}
+
+.menu-container {
+    width: 20%;
+}
+
+/* //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\ */
+
+.menu {
+    box-sizing: border-box;
+    padding: 2em;
+    margin-top: 5em;
+}
+
+h2 {
+    width: max-content;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid black;
+    padding: .2em;
+    line-height: 95%;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li>span{
+    cursor: pointer;
+}
+li>span:hover {
+    transition: .1s;
+    transform: scale(1.2) translateX(1.2em);
+}
+
+.galery-child {
+    margin-left: 1em;
+}
+
+/* //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\ */
+
