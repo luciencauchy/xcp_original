@@ -1,7 +1,9 @@
 <template>
     <form class="card">
-        <legend>Supprimer un galerie</legend>
-        <p>Êtes-vous sûr de vouloir supprimer {{galery.name}} ?</p>
+        <fieldset>
+            <legend>Supprimer un galerie</legend>
+            <p>Êtes-vous sûr de vouloir supprimer {{galery.name}} ?</p>
+        </fieldset>
         <div class="modal-btns">
             <button @click.prevent="closeModal()">Annuler</button>
             <button @click.prevent="deleteGalery(galery.id)">Supprimer</button>

@@ -52,10 +52,9 @@ class PhotoController extends Controller
         return new PhotoResource($photo);
     }
 
-    public function destroy(Photo $photo) : Response
+    public function destroy(PhotoRequest $request, Photo $photo) : PhotoResource
     {
         $photo->delete();
-
-        return response()->noContent();
+        return new PhotoResource($photo);
     }
 }

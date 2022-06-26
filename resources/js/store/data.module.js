@@ -42,6 +42,10 @@ export const data = {
             commit('updatePhotos', photos)
         },
 
+        deletePhoto({ commit }, photo){
+            commit('deletePhoto', photo)
+        },
+
         reset({ commit }) {
             commit('reset')
         },
@@ -61,6 +65,11 @@ export const data = {
             state.photos = photos
         },
         
+        deletePhoto(state, photo){
+            const wDeleted = state.photos.filter((p) => p.id !== photo.id)
+            state.photos = wDeleted
+        },
+
         reset(state){
             state.galery = false
         },

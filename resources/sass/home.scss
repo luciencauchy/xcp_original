@@ -18,6 +18,7 @@
 }
 
 h2 {
+    cursor: pointer;
     width: max-content;
     text-align: center;
     box-sizing: border-box;
@@ -31,12 +32,15 @@ ul {
     margin: 0;
     padding: 0;
 }
-li>span{
+li, .galery>span {
     cursor: pointer;
+    display: block;
+    margin-bottom: .3em;
 }
-li>span:hover {
-    transition: .1s;
-    transform: scale(1.2) translateX(1.2em);
+
+.selected {
+    margin-left: 1em;
+    text-decoration: underline;
 }
 
 .galery-child {
@@ -44,4 +48,3 @@ li>span:hover {
 }
 
 /* //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\ */
-

@@ -17,44 +17,65 @@
 </template>
 
 <script>
-import galeryAnimations from '../../animations/galeryAnimations'
 import { mapGetters } from 'vuex'
-import usePhotos from '../../composables/usePhotos'
-export default {
-    setup(){
-        const { displayedPhotos, galeryChunks } = usePhotos()
+import galeryAnimations from '../../animations/galeryAnimations'
 
-        const photos = displayedPhotos("home");
-        const chunks = galeryChunks();
-        console.log(chunks)
-        return { displayedPhotos, photos, chunks }
+export default {
+
+    data(){
+        return {
+            chunks: [[], [], []],
+        }
     },
 
     computed : {
         ...mapGetters({
+            photos: 'data/photos',
             galery: 'home/galery',
-            loading: 'home/loading'
+            loading: 'home/loading',
         }),
+
+        displayed(){
+            return this.photos.filter((p) => p.galeryId === this.galery.id)
+        },
     },
 
     watch: {
         loading(val){
-            console.log('loading', val)
-            if((
-                ((val.children) || (val.galery && val.galery.hasChild)))
-            ) {
-                console.log("load...")
-                this.loadGaleryImgs()
+            if(!val.hasChild) {
+                this.chunks = this.makeChunks()
             }
+        },
+
+        photos(){
+            this.chunks = this.makeChunks()
+        },
+
+        galery(){
+            this.chunks = this.makeChunks()
         }
     },
 
     methods: {
+
+        makeChunks(){
+            const chunks = [[], [], []]
+            let counter = 0;
+            this.displayed.forEach((p) => {
+                chunks[counter].push(p)
+                counter++
+                if(counter>2) counter = 0
+            })
+            this.loadGaleryImgs()
+            return chunks
+        },
+
         async loadGaleryImgs(){
             if(this.loading){
-                const loadingImgs = [];
+                console.log('loading imgs')
+                const loadingImgs = []
 
-                this.photos.forEach( async (photo) => {
+                this.displayed.forEach( async (photo) => {
                     const p = new Image()
                     p.src = photo.src
                     loadingImgs.push(await p.decode())
@@ -69,7 +90,7 @@ export default {
             else {
                 this.$store.dispatch('home/endLoad')
             }
-        }
+        },
     }
 }
 </script>

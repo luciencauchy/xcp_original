@@ -23,7 +23,6 @@ class galeryAnimations {
                 }, 35*i);
             })
             setTimeout(() => {
-                console.log('yay !')
                 resolve();
             }, 35*(this.images().length + 1));
         })

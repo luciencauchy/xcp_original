@@ -65,8 +65,18 @@ export default function usePhotos(){
         return chunks
     }
 
-    const toggleFavourite = async (photoId, data) => {
-        await axios.put('./api/photo/'+photoId, data)
+    const toggleFavourite = async (photo, data) => {
+        const res = await axios.put('./api/photo/'+photo.id, data)
+        if(res.status === 200){
+            photo.favourite = !photo.favourite
+        }
+    }
+
+    const deletePhoto = async (photo) => {
+        const res = await axios.delete('./api/photo/'+photo.id)
+        if(res.status == 200){
+            store.dispatch('data/deletePhoto', photo)
+        }
     }
 
     return {
@@ -77,5 +87,6 @@ export default function usePhotos(){
         displayedPhotos,
         galeryChunks,
         toggleFavourite,
+        deletePhoto
     }
 }

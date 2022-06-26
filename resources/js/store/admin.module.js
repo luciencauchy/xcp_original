@@ -5,10 +5,15 @@ export const admin = {
     state: {
         targetGalery: false,
         loading: false,
-        editOrder: false
+        editOrder: false,
+        editMode: false
     },
 
     getters: {
+        editMode(state){
+            return state.editMode
+        },
+
         targetGalery(state){
             return state.targetGalery
         },
@@ -23,6 +28,10 @@ export const admin = {
     },
 
     actions: {
+        toggleEditMode({ commit }){
+            commit('toggleEditMode')
+        },
+
         selectGalery({ commit }, galery){
             commit('selectGalery', galery)
         },
@@ -41,6 +50,10 @@ export const admin = {
     },
 
     mutations: {
+        toggleEditMode(state){
+            state.editMode = !state.editMode
+        },
+
         selectGalery(state, galery){
             state.targetGalery = galery
         },

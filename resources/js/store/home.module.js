@@ -4,7 +4,7 @@ export const home = {
 
     state: {
         openMenu: false,
-        openGalery: false,
+        galery: false,
         loading: false
     },
 
@@ -14,7 +14,7 @@ export const home = {
         },
 
         galery(state){
-            return state.openGalery
+            return state.galery
         },
 
         loading(state){
@@ -27,8 +27,11 @@ export const home = {
             commit('openMenu', galery)
         },
 
+        setGalery({ commit }, galery){
+            commit('setGalery', galery)
+        },
+
         load({ commit }, galery){
-            console.log('galery')
             commit('load', galery)
         },
 
@@ -40,6 +43,10 @@ export const home = {
     mutations: {
         openMenu(state, galery){
             state.openMenu = galery
+        },
+
+        setGalery(state, galery){
+            state.galery = galery
         },
 
         load(state, galery){

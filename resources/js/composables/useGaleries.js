@@ -17,7 +17,7 @@ export default function useGaleries(){
     const storeGalery = async (data) => {
         const newGalery = await axios.post('./api/galery', {name: data})
         await getGaleries()
-        store.dispatch('modal/updateEditedGalery', newGalery.data.data)
+        store.dispatch('admin/selectGalery', newGalery.data.data)
     }
 
     const storeChildGalery = async (galeryId, data) => {
@@ -27,25 +27,29 @@ export default function useGaleries(){
         }
         const newGalery = await axios.post('./api/galery', toSend)
         await getGaleries()
-        store.dispatch('modal/updateEditedGalery', newGalery.data.data)
+        store.dispatch('admin/selectGalery', newGalery.data.data)
     }
 
     const changeType = async (galeryId, newType) => {
         const modified = await axios.put('./api/galery/'+galeryId, {hasChild: newType})
         await getGaleries()
-        store.dispatch('modal/updateEditedGalery', modified.data.data)
+        store.dispatch('admin/selectGalery', modified.data.data)
+        store.dispatch('modal/hide')
     }
 
     const editGaleryName= async (galeryId, newName) => {
         const modified = await axios.put('./api/galery/'+galeryId, {name: newName})
         await getGaleries()
-        store.dispatch('modal/updateEditedGalery', modified.data.data)
+        store.dispatch('admin/selectGalery', modified.data.data)
+        store.dispatch('modal/hide')
     }
     
     const deleteGalery = async (galeryId) => {
         await axios.delete('./api/galery/'+galeryId)
         await getGaleries()
-        store.dispatch('modal/updateEditedGalery', false)
+        store.dispatch('admin/selectGalery', false)
+        store.dispatch('modal/hide')
+        store.dispatch('admin/toggleEditOrder')
     }
 
     return {

@@ -8,6 +8,14 @@ body {
   margin: 0;
 }
 
+.txt-center {
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
 #app {
   margin: 0;
 }
@@ -91,6 +99,8 @@ button:hover {
 fieldset {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1em;
+  padding: 2em;
 }
 
 label.hidden {
@@ -167,6 +177,7 @@ img {
 }
 
 h2 {
+  cursor: pointer;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -183,13 +194,15 @@ ul {
   padding: 0;
 }
 
-li > span {
+li, .galery > span {
   cursor: pointer;
+  display: block;
+  margin-bottom: 0.3em;
 }
 
-li > span:hover {
-  transition: 0.1s;
-  transform: scale(1.2) translateX(1.2em);
+.selected {
+  margin-left: 1em;
+  text-decoration: underline;
 }
 
 .galery-child {

@@ -1,11 +1,12 @@
 <template>
+<div class="galery-container">
     <section class="col">
         <div class="img-container hide" v-for="photo of chunks[0]" :key="photo.id" >
         <div class="edit-div">
-            <i class="fa-solid fa-star" v-show="photo.favourite" @click="editFavourite(photo.id)"></i>
-            <i class="fa-regular fa-star" v-show="!photo.favourite" @click="editFavourite(photo.id)"></i>
+            <i class="fa-solid fa-star" v-show="photo.favourite" @click="editFavourite(photo)"></i>
+            <i class="fa-regular fa-star" v-show="!photo.favourite" @click="editFavourite(photo)"></i>
             <i class="fa-regular fa-hand"></i>
-            <i class="fa-solid fa-trash-can"></i>
+            <i class="fa-solid fa-trash-can" @click="deletePhoto(photo)"></i>
         </div>
             <img :src="photo.src"/>
         </div>
@@ -13,10 +14,10 @@
     <section class="col">
         <div class="img-container hide" v-for="photo of chunks[1]" :key="photo.id" >
         <div class="edit-div">
-            <i class="fa-solid fa-star" v-show="photo.favourite" @click="editFavourite(photo.id)"></i>
-            <i class="fa-regular fa-star" v-show="!photo.favourite" @click="editFavourite(photo.id)"></i>
+            <i class="fa-solid fa-star" v-show="photo.favourite" @click="editFavourite(photo)"></i>
+            <i class="fa-regular fa-star" v-show="!photo.favourite" @click="editFavourite(photo)"></i>
             <i class="fa-regular fa-hand"></i>
-            <i class="fa-solid fa-trash-can"></i>
+            <i class="fa-solid fa-trash-can" @click="deletePhoto(photo)"></i>
         </div>
             <img :src="photo.src"/>
         </div>
@@ -24,35 +25,36 @@
     <section class="col">
         <div class="img-container hide" v-for="photo of chunks[2]" :key="photo.id" >
         <div class="edit-div">
-            <i class="fa-solid fa-star" v-show="photo.favourite" @click="editFavourite(photo.id)"></i>
-            <i class="fa-regular fa-star" v-show="!photo.favourite" @click="editFavourite(photo.id)"></i>
+            <i class="fa-solid fa-star" v-show="photo.favourite" @click="editFavourite(photo)"></i>
+            <i class="fa-regular fa-star" v-show="!photo.favourite" @click="editFavourite(photo)"></i>
             <i class="fa-regular fa-hand"></i>
-            <i class="fa-solid fa-trash-can"></i>
+            <i class="fa-solid fa-trash-can" @click="deletePhoto(photo)"></i>
         </div>
             <img :src="photo.src"/>
         </div>
     </section>
+</div>
 </template>
 
 <script>
-import galeryAnimations from '../../animations/galeryAnimations'
 import { mapGetters } from 'vuex'
 import usePhotos from '../../composables/usePhotos'
+import galeryAnimations from '../../animations/galeryAnimations'
 
 export default {
 
     setup(){
-        const { toggleFavourite } = usePhotos()
+        const { toggleFavourite, deletePhoto } = usePhotos()
 
-        function editFavourite(photoId){
+        function editFavourite(photo){
             const data = {
-                photoId: photoId,
+                photoId: photo.id,
                 favourite: true,
             }
-            toggleFavourite(photoId, data)
+            toggleFavourite(photo, data)
         }
 
-        return { editFavourite }
+        return { editFavourite, deletePhoto }
     },
 
     data(){
@@ -81,12 +83,21 @@ export default {
                 this.chunks = this.makeChunks()
                 this.loadGaleryImgs()
             }
+        },
+
+        photos(){
+            this.chunks = this.makeChunks()
+        },
+
+        galery(){
+            this.chunks = this.makeChunks()
         }
     },
 
     methods: {
+
         makeChunks(){
-            const chunks = [[], [], []];
+            const chunks = [[], [], []]
             let counter = 0;
             this.displayed.forEach((p) => {
                 chunks[counter].push(p)
@@ -98,7 +109,7 @@ export default {
 
         async loadGaleryImgs(){
             if(this.loading){
-                const loadingImgs = [];
+                const loadingImgs = []
 
                 this.displayed.forEach( async (photo) => {
                     const p = new Image()
